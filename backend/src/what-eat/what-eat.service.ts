@@ -21,6 +21,13 @@ export class WhatEatService {
         }));
     }
 
+    async getRandomByType(type: string) {
+        const filter = type && type !== 'all' ? { type } : {};
+        const foods = await this.foodModel.find(filter).exec();
+        const random = foods[Math.floor(Math.random() * foods.length)];
+        return random;
+    }
+
     async getFoodById(id: string) {
         const food = await this.foodModel.findById(id).exec();
         if (!food) {
